@@ -24,7 +24,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Mykolab\\FilterBuilder\\": "src/"
+            "Mykolab\\FilterBuilder\\": "src/",
+            "Mykolab\\FilterBuilder\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
@@ -34,7 +35,7 @@
     },
     "scripts": {
         "test": "vendor/bin/pest",
-        "test-coverage": "phpunit --coverage-html coverage"
+        "coverage": "vendor/bin/pest --coverage"
     },
     "config": {
         "sort-packages": true,
