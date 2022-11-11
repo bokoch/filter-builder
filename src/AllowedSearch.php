@@ -18,10 +18,6 @@ class AllowedSearch
 
     public function search(FilterBuilder $filterBuilder, string $value): void
     {
-        if (empty($value)) {
-            return;
-        }
-
         ($this->search)($filterBuilder->getQueryBuilder(), $value);
     }
 

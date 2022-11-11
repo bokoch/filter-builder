@@ -16,10 +16,6 @@ class CallbackSearch implements Search
 
     public function __invoke(Builder $query, string $value): void
     {
-        if (empty($value)) {
-            return;
-        }
-
         $query->where(
             fn (Builder $query) => call_user_func($this->closure, $query, $value)
         );

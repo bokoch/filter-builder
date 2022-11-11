@@ -9,7 +9,7 @@ use Mykolab\FilterBuilder\Enums\SortDirection;
 class CallbackSort implements Sort
 {
     /**
-     * @param Closure(Builder $query, string $propery, SortDirection $sortDirection): void $closure
+     * @param Closure(Builder $query, string $property, SortDirection $sortDirection): void $closure
      */
     public function __construct(private readonly Closure $closure)
     {

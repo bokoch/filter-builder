@@ -43,13 +43,13 @@ class FilterBuilder
      * @param  Builder|class-string<Model>  $subject
      * @return $this
      */
-    public static function for(Builder|string $subject): static
+    public static function for(Builder|string $subject, ?Request $request = null): static
     {
         if (is_subclass_of($subject, Model::class)) {
             $subject = $subject::query();
         }
 
-        return new static($subject);
+        return new static($subject, $request);
     }
 
     public function getQueryBuilder(): Builder

@@ -11,7 +11,7 @@ class CallbackAllowedFilter extends AllowedFilter
 {
     /**
      * @param  string  $name
-     * @param Closure(Builder $query, Expression|string $propery, mixed $value): void $closure
+     * @param Closure(Builder $query, Expression|string $property, mixed $value): void $closure
      * @return static
      */
     public static function make(string $name, Closure $closure): static

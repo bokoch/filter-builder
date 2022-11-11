@@ -1,6 +1,7 @@
 <?php
 
-use Mykolab\FilterBuilder\FilterBuilderRequest;
+namespace Mykolab\FilterBuilder;
+
 use Mykolab\FilterBuilder\Pagination\Resolvers\DefaultPaginationResolver;
 use Mykolab\FilterBuilder\Pagination\Resolvers\PaginationResolver;
 use Spatie\LaravelPackageTools\Package;

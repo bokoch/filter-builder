@@ -17,10 +17,6 @@ class FieldSearch implements Search
 
     public function __invoke(Builder $query, string $value): void
     {
-        if ($this->searchables->isEmpty()) {
-            return;
-        }
-
         $query->where(function (Builder $query) use ($value) {
             $this->searchables->map(function (Searchable $searchable) use ($query, $value) {
                 $likeOperator = $searchable->caseInsensitive ? 'ilike' : 'like';

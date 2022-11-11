@@ -10,7 +10,7 @@ use Mykolab\FilterBuilder\FilterBuilder;
 class CallbackFilter implements Filter
 {
     /**
-     * @param Closure(Builder $query, Expression|string $propery, mixed $value): void $closure
+     * @param Closure(Builder $query, Expression|string $property, mixed $value): void $closure
      */
     public function __construct(
         private readonly Closure $closure
