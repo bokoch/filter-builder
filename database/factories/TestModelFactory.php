@@ -16,6 +16,7 @@ class TestModelFactory extends Factory
             'name' => $this->faker->words(2, true),
             'status' => $this->faker->randomElement(['pending', 'awaiting', 'completed']),
             'price' => $this->faker->numberBetween(100, 999),
+            'published_at' => $this->faker->dateTime,
             'is_visible' => $this->faker->boolean,
             'related_model_id' => RelatedModel::factory(),
         ];

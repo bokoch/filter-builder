@@ -28,7 +28,7 @@ it('can filter by exact value of filter field', function () {
         ])
         ->get();
 
-    expect($actualResults)->toHaveCount(0);
+    expect($actualResults)->toBeEmpty();
 });
 
 it('can filter by allowed filter name alias', function () {
@@ -59,7 +59,7 @@ it('will not perform any filtering if it is not allowed', function () {
 });
 
 it('will not perform any filtering if filter value is empty', function () {
-    $models = TestModel::factory(5)->create();
+    TestModel::factory(5)->create();
 
     $actualResults = createFilterBuilderFromRequest(
         [
@@ -101,7 +101,7 @@ it('can filter by "having" statement', function () {
     $query = RelatedModel::query()
         ->selectRaw('
             related_models.*,
-            sum(t.price) as total_price    
+            sum(t.price) as total_price
         ')
         ->join('test_models as t', 't.related_model_id', '=', 'related_models.id')
         ->groupBy('related_models.id');

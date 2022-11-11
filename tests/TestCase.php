@@ -32,6 +32,7 @@ class TestCase extends Orchestra
             $table->string('status');
             $table->integer('price');
             $table->boolean('is_visible')->default(true);
+            $table->dateTime('published_at')->nullable();
             $table->integer('related_model_id');
             $table->timestamps();
         });
