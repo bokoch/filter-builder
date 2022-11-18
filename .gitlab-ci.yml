@@ -1,0 +1,23 @@
+stages:
+    - tests
+
+Run tests:
+    image: php:8.1-cli
+    stage: tests
+    variables:
+        POSTGRES_DB: laravel_filter_builder
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: password
+    services:
+        - postgres:latest
+    before_script:
+        - apt-get update
+        - apt-get install zip unzip
+        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+        - php composer-setup.php
+        - php -r "unlink('composer-setup.php');"
+    script:
+        - composer install
+        - ls -la
+    only:
+        - Setup_CI
