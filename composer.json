@@ -35,7 +35,9 @@
     },
     "scripts": {
         "test": "vendor/bin/pest",
-        "coverage": "vendor/bin/pest --coverage"
+        "coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint",
+        "code-style": "vendor/bin/pint --test"
     },
     "config": {
         "sort-packages": true,
