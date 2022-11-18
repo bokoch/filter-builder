@@ -7,7 +7,7 @@ use Illuminate\Database\Query\Expression;
 use Mykolab\FilterBuilder\Enums\DateUnit;
 use Mykolab\FilterBuilder\Filters\RangeFilter;
 
-class DateRangeAllowedFilter extends AllowedFilter
+class DateRangeAllowedFilter extends BaseAllowedFilter
 {
     private ?DateUnit $dateUnit = null;
 

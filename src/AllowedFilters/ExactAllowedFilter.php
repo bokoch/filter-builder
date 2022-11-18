@@ -5,7 +5,7 @@ namespace Mykolab\FilterBuilder\AllowedFilters;
 use Illuminate\Database\Query\Expression;
 use Mykolab\FilterBuilder\Filters\ExactFilter;
 
-class ExactAllowedFilter extends AllowedFilter
+class ExactAllowedFilter extends BaseAllowedFilter
 {
     public static function make(
         string $name,

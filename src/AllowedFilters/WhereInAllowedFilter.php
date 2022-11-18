@@ -5,7 +5,7 @@ namespace Mykolab\FilterBuilder\AllowedFilters;
 use Illuminate\Database\Query\Expression;
 use Mykolab\FilterBuilder\Filters\WhereInFilter;
 
-class WhereInAllowedFilter extends AllowedFilter
+class WhereInAllowedFilter extends BaseAllowedFilter
 {
     private array $allowedOptions = [];
 

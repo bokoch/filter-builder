@@ -15,6 +15,9 @@ class FilterBuilderRequest extends Request
         return static::createFrom($request);
     }
 
+    /**
+     * @return Collection<string, mixed>
+     */
     public function filters(): Collection
     {
         $ignoreParameters = [

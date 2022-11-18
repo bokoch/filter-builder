@@ -19,6 +19,7 @@ It should be instance of `AllowedFilter` or just a string which by default
 will be resolved as ExactAllowedFilter.
 
 Example:
+
 ```php
 use Mykolab\FilterBuilder\FilterBuilder;
 use Mykolab\FilterBuilder\AllowedFilters\ExactAllowedFilter;
@@ -35,6 +36,7 @@ And all of them except `CallbackAllowedFilter` has required `name` and nullable 
 is Eloquent query field name by which you will perform filtering, if this field is `null`, by default,
 it will be copied from `name` argument.
 Example:
+
 ```php
 use Mykolab\FilterBuilder\FilterBuilder;
 use Mykolab\FilterBuilder\AllowedFilters\ExactAllowedFilter;
@@ -57,7 +59,7 @@ Equivalent to:
     ```
     Also, you can use having clause by passing `$useHaving = true` argument in `make` method.
 2. LikeAllowedFilter - will add to Eloquent query `where` clauses with `like` operator.
-Equivalent to:
+   Equivalent to:
     ```php
     $query->where('name', 'like', request()->name . '%')
     ```
@@ -73,8 +75,8 @@ Equivalent to:
         ]);
     ```
     By default, it has only percent wild-card in the end of value, like `request()->name . '%'`.
-    But you can specify it with `wildCardAtStart` and `wildCardAtStart` methods.
-    For example:
+   But you can specify it with `wildCardAtStart` and `wildCardAtStart` methods.
+   For example:
     ```php
     use Mykolab\FilterBuilder\FilterBuilder;
     use Mykolab\FilterBuilder\AllowedFilters\LikeAllowedFilter;
@@ -101,9 +103,9 @@ Equivalent to:
         ->where('price', '>=', request()->price_from)
         ->where('price', '<=', request()->price_to)
     ```
-    By default, you need to use `_from` and `_to` suffixes with allowed filter name, 
-    but you can change it in a `filter-builder.php` config file `request_parameters.range_suffix`.
-    For example, if you registered `price` filter in API request it should looks like:
+    By default, you need to use `_from` and `_to` suffixes with allowed filter name,
+   but you can change it in a `filter-builder.php` config file `request_parameters.range_suffix`.
+   For example, if you registered `price` filter in API request it should looks like:
     `/orders?price_from=1&price_to=100`
     If you are using POST requests, alternatively you can just set `from` and `to` values as object parameters, like:
     ```json
@@ -114,12 +116,12 @@ Equivalent to:
         }
     }
     ```
-    `from` and `to` are optional fields, if you will not set `to` parameter it will 
-    filter values that greater or equal `from` value, same logic if you will not set `from` parameter.
-    Also, you can use having clause by passing `$useHaving = true` argument in `make` method.
+    `from` and `to` are optional fields, if you will not set `to` parameter it will
+   filter values that greater or equal `from` value, same logic if you will not set `from` parameter.
+   Also, you can use having clause by passing `$useHaving = true` argument in `make` method.
 4. DateRangeAllowedFilter - have the same functionality as `RangeAllowedFilter`.
-The difference is `DateRangeAllowedFilter` works with dates. You can round input parameters to `DateUnit` enum.
-For example:
+   The difference is `DateRangeAllowedFilter` works with dates. You can round input parameters to `DateUnit` enum.
+   For example:
     ```php
     use Mykolab\FilterBuilder\FilterBuilder;
     use Mykolab\FilterBuilder\AllowedFilters\DateRangeAllowedFilter;
@@ -140,7 +142,7 @@ For example:
     ```
    Also, you can use having clause by passing `$useHaving = true` argument in `make` method.
 5. WhereInAllowedFilter - will add to Eloquent query `whereIn` clauses.
-For example:
+   For example:
     ```php
     use Mykolab\FilterBuilder\FilterBuilder;
     use Mykolab\FilterBuilder\AllowedFilters\WhereInAllowedFilter;
@@ -155,12 +157,12 @@ For example:
     $query->whereIn('role', request()->get('status', []));
     ```
     You can set allowed options by using `allowedOptions` method and passing array of allowed values,
-    all values that not in allowed options will be ignored during filtering.
-    You can set multiple values for this allowed filter, if you are using GET request
-    you can set it as array like `/users?role[]=customer&role[]=admin` or with delimiter as one parameter
-    like `/users?role=customer,admin`, by default it is use comma delimiter, but you can specify your custom delimiter
-    with calling `delimiter` method on `WhereInAllowedFilter` instance.
-    If you are using POST requests with json, you can pass it as json array.  
+   all values that not in allowed options will be ignored during filtering.
+   You can set multiple values for this allowed filter, if you are using GET request
+   you can set it as array like `/users?role[]=customer&role[]=admin` or with delimiter as one parameter
+   like `/users?role=customer,admin`, by default it is use comma delimiter, but you can specify your custom delimiter
+   with calling `delimiter` method on `WhereInAllowedFilter` instance.
+   If you are using POST requests with json, you can pass it as json array.  
 6. CallbackAllowedFilter - will apply callback on Eloquent query.
    For example:
     ```php
@@ -180,7 +182,9 @@ For example:
             ),
         ]);
     ```
-TBD: Custom allowed filters
+If you want to create your custom allowed filter,
+you need implement `\Mykolab\FilterBuilder\AllowedFilters\AllowedFilter` interface 
+and you can use it in `allowedFilters` method.
 
 ### Sort based on request
 You can sort an Eloquent query with POST or GET requests.

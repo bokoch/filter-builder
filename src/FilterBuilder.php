@@ -90,6 +90,10 @@ class FilterBuilder
         return $this;
     }
 
+    /**
+     * @param array<AllowedFilter|string> $allowedFilters
+     * @return $this
+     */
     public function allowedFilters(array $allowedFilters): static
     {
         $this->allowedFilters = collect($allowedFilters)->map(function (AllowedFilter|string $allowedFilter) {
@@ -109,7 +113,7 @@ class FilterBuilder
     {
         $this->allowedFilters->each(function (AllowedFilter $allowedFilter) {
             if ($this->isFilterRequested($allowedFilter)) {
-                $value = $this->request->filters()->get($allowedFilter->name);
+                $value = $this->request->filters()->get($allowedFilter->getName());
                 if (! empty($value)) {
                     $allowedFilter->filter($this, $value);
                 }
@@ -119,9 +123,13 @@ class FilterBuilder
 
     public function isFilterRequested(AllowedFilter $allowedFilter): bool
     {
-        return $this->request->filters()->has($allowedFilter->name);
+        return $this->request->filters()->has($allowedFilter->getName());
     }
 
+    /**
+     * @param array<AllowedSort|string> $sorts
+     * @return $this
+     */
     public function allowedSorts(array $sorts): static
     {
         $this->allowedSorts = collect($sorts)->map(function (string|AllowedSort $sort) {

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
 use Mykolab\FilterBuilder\Filters\CallbackFilter;
 
-class CallbackAllowedFilter extends AllowedFilter
+class CallbackAllowedFilter extends BaseAllowedFilter
 {
     /**
      * @param  string  $name

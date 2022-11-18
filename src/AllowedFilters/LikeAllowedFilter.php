@@ -6,7 +6,7 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Stringable;
 use Mykolab\FilterBuilder\Filters\LikeFilter;
 
-class LikeAllowedFilter extends AllowedFilter
+class LikeAllowedFilter extends BaseAllowedFilter
 {
     private bool $wildCardAtStart = false;
 
