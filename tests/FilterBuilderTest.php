@@ -9,6 +9,7 @@ use Mykolab\FilterBuilder\FilterBuilder;
 use Mykolab\FilterBuilder\FilterBuilderRequest;
 use Mykolab\FilterBuilder\Pagination\Resolvers\PaginationResolver;
 use Mykolab\FilterBuilder\Tests\TestClasses\Models\TestModel;
+use Mykolab\FilterBuilder\Tests\TestClasses\Pagination\TestPaginationResource;
 use Mykolab\FilterBuilder\Tests\TestClasses\TestModelResource;
 
 it('will not perform any filtering if value is empty', function () {
@@ -120,6 +121,32 @@ it('can paginate results', function () {
     );
 
     FilterBuilder::for(TestModel::class)->paginate();
+});
+
+it('can paginate results with custom pagination resolver', function () {
+    Route::get('/test-model', function () {
+        $this->instance(
+            PaginationResolver::class,
+            Mockery::mock(
+                PaginationResolver::class,
+                function (MockInterface $mock) {
+                    $mock
+                        ->expects('makePaginationResource')
+                        ->andReturn(
+                            TestPaginationResource::make(TestModel::factory()->make())
+                        );
+                }
+            )
+        );
+
+        return FilterBuilder::for(TestModel::class)->paginate();
+    });
+
+    $this->getJson('/test-model')->assertJson([
+        'data' => [
+            'foo' => 'bar',
+        ],
+    ]);
 });
 
 it('can paginate results with custom resource', function () {

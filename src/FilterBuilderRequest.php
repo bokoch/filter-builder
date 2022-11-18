@@ -18,8 +18,8 @@ class FilterBuilderRequest extends Request
     public function filters(): Collection
     {
         $ignoreParameters = [
-            config('filter-builder.request_parameters.sort_by'),
-            config('filter-builder.request_parameters.sort_direction'),
+            config('filter-builder.request_parameters.order_by'),
+            config('filter-builder.request_parameters.order_direction'),
         ];
 
         return $this->getRequestData()->except($ignoreParameters);
@@ -27,14 +27,14 @@ class FilterBuilderRequest extends Request
 
     public function sortBy(): ?string
     {
-        $sortParameterName = config('filter-builder.request_parameters.sort_by');
+        $sortParameterName = config('filter-builder.request_parameters.order_by');
 
         return $this->getRequestData()->get($sortParameterName);
     }
 
     public function sortDirection(): SortDirection
     {
-        $sortDirParameterName = config('filter-builder.request_parameters.sort_direction');
+        $sortDirParameterName = config('filter-builder.request_parameters.order_direction');
 
         return SortDirection::tryFrom($this->getRequestData()->get($sortDirParameterName)) ?? SortDirection::ASCENDING;
     }

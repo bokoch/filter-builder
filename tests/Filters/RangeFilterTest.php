@@ -137,3 +137,22 @@ it('can filter by "having" statement', function () {
 
     expect($actualResults)->toHaveCount(1);
 });
+
+it('will perform filtering with POST request array', function () {
+    TestModel::factory(2)->create(['price' => 300]);
+    TestModel::factory(3)->create(['price' => 500]);
+
+    $actualResults = createFilterBuilderFromRequest(
+        [
+            'price' => [
+                'from' => 200,
+                'to' => 400,
+            ],
+        ])
+        ->allowedFilters([
+            RangeAllowedFilter::make('price')
+        ])
+        ->get();
+
+    expect($actualResults)->toHaveCount(2);
+});

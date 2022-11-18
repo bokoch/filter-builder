@@ -172,3 +172,22 @@ it('can round date to date unit', function () {
 
     expect($actualResults)->toHaveCount(5);
 });
+
+it('will perform filtering with POST request array', function () {
+    TestModel::factory(2)->create(['published_at' => now()]);
+    TestModel::factory(3)->create(['published_at' => now()->addDays(3)]);
+
+    $actualResults = createFilterBuilderFromRequest(
+        [
+            'published_at' => [
+                'from' => now()->addDay()->format('Y-m-d H:i'),
+                'to' => now()->addDays(4)->format('Y-m-d H:i'),
+            ],
+        ])
+        ->allowedFilters([
+            DateRangeAllowedFilter::make('published_at')
+        ])
+        ->get();
+
+    expect($actualResults)->toHaveCount(3);
+});

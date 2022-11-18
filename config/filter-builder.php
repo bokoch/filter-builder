@@ -9,8 +9,8 @@ return [
 
         'search' => 'search',
 
-        'sort_by' => 'order_by',
-        'sort_direction' => 'order_direction',
+        'order_by' => 'order_by',
+        'order_direction' => 'order_direction',
 
         'range_suffix' => [
             'from' => '_from',

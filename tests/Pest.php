@@ -12,7 +12,7 @@ uses(TestCase::class)->in(__DIR__);
 
 function createFilterBuilderFromRequest(
     array $requestParameters,
-    Builder|string|null $subject= TestModel::class
+    Builder|string|null $subject = TestModel::class
 ): FilterBuilder {
     return FilterBuilder::for($subject, new Request($requestParameters));
 }
