@@ -4,7 +4,6 @@ namespace Mykolab\FilterBuilder\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Mykolab\FilterBuilder\Tests\TestClasses\Models\RelatedModel;
-use Mykolab\FilterBuilder\Tests\TestClasses\Models\TestModel;
 
 class RelatedModelFactory extends Factory
 {

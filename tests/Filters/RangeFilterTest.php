@@ -17,7 +17,7 @@ it('can filter by range, which include edges.', function () {
             'price_to' => 500,
         ])
         ->allowedFilters([
-            RangeAllowedFilter::make('price')
+            RangeAllowedFilter::make('price'),
         ])
         ->get();
 
@@ -37,7 +37,7 @@ it('can filter by range, with missing "end" edge', function () {
             'price_from' => 400,
         ])
         ->allowedFilters([
-            RangeAllowedFilter::make('price')
+            RangeAllowedFilter::make('price'),
         ])
         ->get();
 
@@ -57,7 +57,7 @@ it('can filter by range, with missing "start" edge', function () {
             'price_to' => 400,
         ])
         ->allowedFilters([
-            RangeAllowedFilter::make('price')
+            RangeAllowedFilter::make('price'),
         ])
         ->get();
 
@@ -76,13 +76,12 @@ it('will not perform any filtering if both edges are empty', function () {
             'price_to' => '',
         ])
         ->allowedFilters([
-            RangeAllowedFilter::make('price')
+            RangeAllowedFilter::make('price'),
         ])
         ->get();
 
     expect($actualResults)->toHaveCount(5);
 });
-
 
 it('can use raw db expression as internal name', function () {
     TestModel::factory(2)->create(['price' => 300]);
@@ -94,7 +93,7 @@ it('can use raw db expression as internal name', function () {
             'price_to' => 500,
         ])
         ->allowedFilters([
-            RangeAllowedFilter::make('price', DB::raw('price'))
+            RangeAllowedFilter::make('price', DB::raw('price')),
         ])
         ->get();
 
@@ -129,11 +128,11 @@ it('can filter by "having" statement', function () {
         $query
     )
         ->allowedFilters([
-            RangeAllowedFilter::make('total_price', DB::raw('sum(t.price)'), true)
+            RangeAllowedFilter::make('total_price', DB::raw('sum(t.price)'), true),
         ])
         ->get();
 
-    assertQueryExecuted($baseSql . ' having sum(t.price) >= ? and sum(t.price) <= ?');
+    assertQueryExecuted($baseSql.' having sum(t.price) >= ? and sum(t.price) <= ?');
 
     expect($actualResults)->toHaveCount(1);
 });
@@ -150,7 +149,7 @@ it('will perform filtering with POST request array', function () {
             ],
         ])
         ->allowedFilters([
-            RangeAllowedFilter::make('price')
+            RangeAllowedFilter::make('price'),
         ])
         ->get();
 

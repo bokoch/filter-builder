@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Mockery\MockInterface;
 use Mykolab\FilterBuilder\AllowedFilters\ExactAllowedFilter;
-use Mykolab\FilterBuilder\AllowedSort;
 use Mykolab\FilterBuilder\FilterBuilder;
 use Mykolab\FilterBuilder\FilterBuilderRequest;
 use Mykolab\FilterBuilder\Pagination\Resolvers\PaginationResolver;
@@ -43,7 +42,7 @@ it('will convert string value of allowed filter to exact filter', function () {
 
     $actualResults = createFilterBuilderFromRequest(
         [
-            'name' => $models->first()->name . 'foo',
+            'name' => $models->first()->name.'foo',
         ])
         ->allowedFilters([
             'name',
@@ -211,7 +210,6 @@ it('can filter data and paginate response from get request', function () {
     assertQueryExecuted('select * from "test_models" where "status" = ? order by "id" desc limit 5 offset 0');
 });
 
-
 it('can filter data and paginate response from post request', function () {
     TestModel::factory(20)->create(['status' => 'pending']);
 
@@ -226,11 +224,11 @@ it('can filter data and paginate response from post request', function () {
     });
 
     $this->postJson('/test-models', [
-            'status' => 'pending',
-            'per_page' => 5,
-            'order_by' => 'id',
-            'order_direction' => 'desc',
-        ])
+        'status' => 'pending',
+        'per_page' => 5,
+        'order_by' => 'id',
+        'order_direction' => 'desc',
+    ])
         ->assertJsonCount(5, 'data')
         ->assertJsonStructure([
             'data' => [
@@ -248,4 +246,3 @@ it('can filter data and paginate response from post request', function () {
 
     assertQueryExecuted('select * from "test_models" where "status" = ? order by "id" desc limit 5 offset 0');
 });
-

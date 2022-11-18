@@ -20,7 +20,7 @@ it('can filter by callback', function () {
                 expect($property)->toBe('status');
 
                 $query->where($property, $value)->whereNotNull('published_at');
-            })
+            }),
         ])
         ->get();
 

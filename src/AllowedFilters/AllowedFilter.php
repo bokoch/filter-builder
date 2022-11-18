@@ -10,4 +10,3 @@ interface AllowedFilter
 
     public function filter(FilterBuilder $filterBuilder, $value): void;
 }
-

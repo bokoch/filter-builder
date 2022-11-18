@@ -18,7 +18,7 @@ it('can filter by date range, which include edges.', function () {
             'published_at_to' => now()->addDays(4)->format('Y-m-d H:i'),
         ])
         ->allowedFilters([
-            DateRangeAllowedFilter::make('published_at')
+            DateRangeAllowedFilter::make('published_at'),
         ])
         ->get();
 
@@ -38,7 +38,7 @@ it('can filter by date range, with missing "end" edge', function () {
             'published_at_from' => now()->addDay()->format('Y-m-d H:i'),
         ])
         ->allowedFilters([
-            DateRangeAllowedFilter::make('published_at')
+            DateRangeAllowedFilter::make('published_at'),
         ])
         ->get();
 
@@ -58,7 +58,7 @@ it('can filter by date range, with missing "start" edge', function () {
             'published_at_to' => now()->addDays(2)->format('Y-m-d H:i'),
         ])
         ->allowedFilters([
-            DateRangeAllowedFilter::make('published_at')
+            DateRangeAllowedFilter::make('published_at'),
         ])
         ->get();
 
@@ -77,7 +77,7 @@ it('will not perform any filtering if both edges are empty', function () {
             'published_at_to' => '',
         ])
         ->allowedFilters([
-            DateRangeAllowedFilter::make('published_at')
+            DateRangeAllowedFilter::make('published_at'),
         ])
         ->get();
 
@@ -94,7 +94,7 @@ it('can use raw db expression as internal name', function () {
             'published_at_to' => now()->addDays(4)->format('Y-m-d H:i'),
         ])
         ->allowedFilters([
-            DateRangeAllowedFilter::make('published_at', DB::raw('published_at'))
+            DateRangeAllowedFilter::make('published_at', DB::raw('published_at')),
         ])
         ->get();
 
@@ -129,11 +129,11 @@ it('can filter by "having" statement', function () {
         $query
     )
         ->allowedFilters([
-            DateRangeAllowedFilter::make('published_at', DB::raw('min(t.published_at)'), true)
+            DateRangeAllowedFilter::make('published_at', DB::raw('min(t.published_at)'), true),
         ])
         ->get();
 
-    assertQueryExecuted($baseSql . ' having min(t.published_at) >= ? and min(t.published_at) <= ?');
+    assertQueryExecuted($baseSql.' having min(t.published_at) >= ? and min(t.published_at) <= ?');
 
     expect($actualResults)->toHaveCount(1);
 });
@@ -185,7 +185,7 @@ it('will perform filtering with POST request array', function () {
             ],
         ])
         ->allowedFilters([
-            DateRangeAllowedFilter::make('published_at')
+            DateRangeAllowedFilter::make('published_at'),
         ])
         ->get();
 

@@ -13,7 +13,7 @@ it('can filter by exact value of filter field', function () {
             'name' => $models->first()->name,
         ])
         ->allowedFilters([
-            ExactAllowedFilter::make('name')
+            ExactAllowedFilter::make('name'),
         ])
         ->get();
 
@@ -21,10 +21,10 @@ it('can filter by exact value of filter field', function () {
 
     $actualResults = createFilterBuilderFromRequest(
         [
-            'name' => $models->first()->name . 'foo',
+            'name' => $models->first()->name.'foo',
         ])
         ->allowedFilters([
-            ExactAllowedFilter::make('name')
+            ExactAllowedFilter::make('name'),
         ])
         ->get();
 
@@ -39,7 +39,7 @@ it('can filter by allowed filter name alias', function () {
             'foo' => $models->first()->name,
         ])
         ->allowedFilters([
-            ExactAllowedFilter::make('foo', 'name')
+            ExactAllowedFilter::make('foo', 'name'),
         ])
         ->get();
 
@@ -66,7 +66,7 @@ it('will not perform any filtering if filter value is empty', function () {
             'name' => '',
         ])
         ->allowedFilters([
-            ExactAllowedFilter::make('name')
+            ExactAllowedFilter::make('name'),
         ])
         ->get();
 
@@ -81,7 +81,7 @@ it('can use raw db expression as internal name', function () {
             'name' => $models->first()->name,
         ])
         ->allowedFilters([
-            ExactAllowedFilter::make('name', DB::raw('name'))
+            ExactAllowedFilter::make('name', DB::raw('name')),
         ])
         ->get();
 
@@ -109,16 +109,15 @@ it('can filter by "having" statement', function () {
     $baseSql = $query->toSql();
 
     $actualResults = createFilterBuilderFromRequest(
-            ['total_price' => 600],
-            $query
-        )
+        ['total_price' => 600],
+        $query
+    )
         ->allowedFilters([
-            ExactAllowedFilter::make('total_price', DB::raw('sum(t.price)'), true)
+            ExactAllowedFilter::make('total_price', DB::raw('sum(t.price)'), true),
         ])
         ->get();
 
-    assertQueryExecuted($baseSql . ' having sum(t.price) = ?');
+    assertQueryExecuted($baseSql.' having sum(t.price) = ?');
 
     expect($actualResults)->toHaveCount(1);
 });
-

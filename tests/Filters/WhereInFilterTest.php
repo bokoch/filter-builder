@@ -12,7 +12,7 @@ it('can filter by in array values', function () {
             'status' => 'pending',
         ])
         ->allowedFilters([
-            WhereInAllowedFilter::make('status')
+            WhereInAllowedFilter::make('status'),
         ])
         ->get();
 
@@ -27,7 +27,7 @@ it('can filter by allowed filter name alias', function () {
             'foo' => 'pending',
         ])
         ->allowedFilters([
-            WhereInAllowedFilter::make('foo', 'status')
+            WhereInAllowedFilter::make('foo', 'status'),
         ])
         ->get();
 
@@ -42,7 +42,7 @@ it('can use raw db expression as internal name', function () {
             'status' => 'pending',
         ])
         ->allowedFilters([
-            WhereInAllowedFilter::make('status', DB::raw('status'))
+            WhereInAllowedFilter::make('status', DB::raw('status')),
         ])
         ->get();
 
@@ -59,7 +59,7 @@ it('can filter by multiple values from array', function () {
             'status' => ['completed', 'pending'],
         ])
         ->allowedFilters([
-            WhereInAllowedFilter::make('status')
+            WhereInAllowedFilter::make('status'),
         ])
         ->get();
 
@@ -76,7 +76,7 @@ it('can filter by multiple values parsed from string with comma default delimite
             'status' => 'completed,pending',
         ])
         ->allowedFilters([
-            WhereInAllowedFilter::make('status')
+            WhereInAllowedFilter::make('status'),
         ])
         ->get();
 
@@ -93,7 +93,7 @@ it('can filter by multiple values parsed from string with custom delimiter', fun
             'status' => 'completed|pending',
         ])
         ->allowedFilters([
-            WhereInAllowedFilter::make('status')->delimiter('|')
+            WhereInAllowedFilter::make('status')->delimiter('|'),
         ])
         ->get();
 
@@ -109,7 +109,7 @@ it('can restrict filter options', function () {
             'status' => 'pending',
         ])
         ->allowedFilters([
-            WhereInAllowedFilter::make('status')->allowedOptions(['awaiting'])
+            WhereInAllowedFilter::make('status')->allowedOptions(['awaiting']),
         ])
         ->get();
 
@@ -120,7 +120,7 @@ it('can restrict filter options', function () {
             'status' => 'pending',
         ])
         ->allowedFilters([
-            WhereInAllowedFilter::make('status')->allowedOptions(['pending'])
+            WhereInAllowedFilter::make('status')->allowedOptions(['pending']),
         ])
         ->get();
 

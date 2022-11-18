@@ -60,7 +60,7 @@ it('can sort by alias field', function () {
             'order_direction' => 'desc',
         ])
         ->allowedSorts([
-            AllowedSort::field('foo', 'id')
+            AllowedSort::field('foo', 'id'),
         ])
         ->get();
 
@@ -78,7 +78,7 @@ it('can sort a query by callback', function () {
         ->allowedSorts([
             AllowedSort::callback('id', function (Builder $query, string $property, SortDirection $sortDirection) {
                 $query->orderBy($property, $sortDirection->value)->orderBy('name', $sortDirection->value);
-            })
+            }),
         ])
         ->get();
 

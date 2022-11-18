@@ -91,7 +91,7 @@ class FilterBuilder
     }
 
     /**
-     * @param array<AllowedFilter|string> $allowedFilters
+     * @param  array<AllowedFilter|string>  $allowedFilters
      * @return $this
      */
     public function allowedFilters(array $allowedFilters): static
@@ -127,7 +127,7 @@ class FilterBuilder
     }
 
     /**
-     * @param array<AllowedSort|string> $sorts
+     * @param  array<AllowedSort|string>  $sorts
      * @return $this
      */
     public function allowedSorts(array $sorts): static

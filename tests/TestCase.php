@@ -1,6 +1,7 @@
 <?php
 
 namespace Mykolab\FilterBuilder\Tests;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Application;
@@ -63,6 +64,6 @@ class TestCase extends Orchestra
     {
         $queryLog = collect(DB::getQueryLog())->pluck('query')->implode('|');
 
-        $this->assertStringNotContainsString($partialSql, $queryLog, 'Query log contained partial SQL: ' . $partialSql);
+        $this->assertStringNotContainsString($partialSql, $queryLog, 'Query log contained partial SQL: '.$partialSql);
     }
 }

@@ -116,7 +116,6 @@ it('can be case insensitive', function () {
     expect($actualResults)->toHaveCount(1);
 });
 
-
 it('can use raw db expression as internal name', function () {
     TestModel::factory(5)->create();
     TestModel::factory()->create(['name' => 'foo bar']);
@@ -126,7 +125,7 @@ it('can use raw db expression as internal name', function () {
             'name' => 'foo',
         ])
         ->allowedFilters([
-            LikeAllowedFilter::make('name', DB::raw('name'))
+            LikeAllowedFilter::make('name', DB::raw('name')),
         ])
         ->get();
 
@@ -160,11 +159,11 @@ it('can filter by "having" statement', function () {
         $query
     )
         ->allowedFilters([
-            LikeAllowedFilter::make('names', DB::raw("string_agg(t.name, ',')"), useHaving: true)
+            LikeAllowedFilter::make('names', DB::raw("string_agg(t.name, ',')"), useHaving: true),
         ])
         ->get();
 
-    assertQueryExecuted($baseSql . " having string_agg(t.name, ',') like ?");
+    assertQueryExecuted($baseSql." having string_agg(t.name, ',') like ?");
 
     expect($actualResults)->toHaveCount(1);
 });
