@@ -17,7 +17,7 @@ Run tests:
         - php composer-setup.php
         - php -r "unlink('composer-setup.php');"
     script:
-        - composer install
+        - php composer.phar install
         - ls -la
     only:
         - Setup_CI
