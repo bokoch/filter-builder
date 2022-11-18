@@ -51,3 +51,4 @@ class FilterBuilderRequest extends Request
         return $this->requestData;
     }
 }
+

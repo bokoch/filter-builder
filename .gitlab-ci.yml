@@ -18,6 +18,6 @@ Run tests:
         - php -r "unlink('composer-setup.php');"
     script:
         - php composer.phar install
-        - ls -la
+        - php composer.phar code-style
     only:
         - Setup_CI
