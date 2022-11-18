@@ -1,4 +1,4 @@
-Check code-style:
+Check-code-style:
     image: php:8.1-cli
     before_script:
         - apt-get update
@@ -15,7 +15,7 @@ Check code-style:
     only:
         - Setup_CI
 
-Run tests:
+Run-tests:
     image: php:8.1-cli
     variables:
         POSTGRES_DB: laravel_filter_builder
@@ -29,5 +29,7 @@ Run tests:
     script:
         - php composer.phar install
         - php composer.phar test
+    needs:
+        - Check code-style
     only:
         - Setup_CI
