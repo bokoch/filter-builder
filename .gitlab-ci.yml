@@ -14,8 +14,9 @@ Check code-style:
         - php composer.phar install
         - php composer.phar code-style
     cache:
-        - composer.phar
-        - vendor/
+        paths:
+            - composer.phar
+            - vendor/
     only:
         - Setup_CI
 
