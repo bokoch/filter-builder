@@ -2,6 +2,14 @@
 This package was inspired by [spatie/laravel-query-builder](https://github.com/spatie/laravel-query-builder). 
 It's allows you to perform filtering, sorting and searching based on Eloquent query in API requests with a simple interface.  
 
+# Navigation
+1. [Installation](#installation)
+2. [Basic usage](#basic-usage)
+   1. [Filtering](#filter-based-on-request)
+   2. [Sorting](#sort-based-on-request)
+   3. [Search](#search-based-on-request)
+   4. [Pagination](#pagination)
+
 ## Installation
 You can install the package via composer:
 ```bash

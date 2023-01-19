@@ -4,6 +4,7 @@ namespace Mykolab\FilterBuilder\Pagination\Resolvers;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 use Mykolab\FilterBuilder\FilterBuilderRequest;
 use Mykolab\FilterBuilder\Pagination\PaginationData;
 use Mykolab\FilterBuilder\Pagination\PaginationResource;
@@ -26,7 +27,7 @@ class DefaultPaginationResolver implements PaginationResolver
             config('filter-builder.per_page_default')
         );
 
-        $paginationData = new PaginationData($page, $perPage, $query->count());
+        $paginationData = new PaginationData($page, $perPage, DB::query()->fromSub($query, 'aggregate')->count());
 
         $results = $query
             ->offset($paginationData->getOffset())

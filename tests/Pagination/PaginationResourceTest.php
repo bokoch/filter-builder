@@ -11,7 +11,7 @@ it('has proper pagination meta data', function () {
     expect($paginationResource->toArray(new Request()))->toMatchArray(
         [
             'data' => ['foo' => 'bar'],
-            'current_page' => $paginationData->currentPage,
+            'page' => $paginationData->currentPage,
             'per_page' => $paginationData->perPage,
             'total_pages' => $paginationData->getTotalPages(),
             'total_items' => $paginationData->totalItems,
