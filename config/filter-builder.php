@@ -1,6 +1,10 @@
 <?php
 
+use Mykolab\FilterBuilder\Pagination\Resolvers\SimplePaginationResolver;
+
 return [
+    'default_pagination_resolver' => SimplePaginationResolver::class,
+
     'per_page_default' => 10,
 
     'request_parameters' => [

@@ -9,7 +9,7 @@ use Mykolab\FilterBuilder\FilterBuilderRequest;
 use Mykolab\FilterBuilder\Pagination\PaginationData;
 use Mykolab\FilterBuilder\Pagination\PaginationResource;
 
-class DefaultPaginationResolver implements PaginationResolver
+class SimplePaginationResolver implements PaginationResolver
 {
     /**
      * {@inheritdoc}

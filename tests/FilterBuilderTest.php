@@ -6,6 +6,7 @@ use Mockery\MockInterface;
 use Mykolab\FilterBuilder\AllowedFilters\ExactAllowedFilter;
 use Mykolab\FilterBuilder\FilterBuilder;
 use Mykolab\FilterBuilder\FilterBuilderRequest;
+use Mykolab\FilterBuilder\Pagination\Resolvers\LaravelPaginationResolver;
 use Mykolab\FilterBuilder\Pagination\Resolvers\PaginationResolver;
 use Mykolab\FilterBuilder\Tests\TestClasses\Models\TestModel;
 use Mykolab\FilterBuilder\Tests\TestClasses\Pagination\TestPaginationResource;
@@ -245,4 +246,71 @@ it('can filter data and paginate response from post request', function () {
         ]);
 
     assertQueryExecuted('select * from "test_models" where "status" = ? order by "id" desc limit 5 offset 0');
+});
+
+it('can give simple paginated data by default', function () {
+    TestModel::factory(10)->create();
+
+    Route::get('/test-model', function () {
+        return createFilterBuilderFromRequest()->resource(TestModelResource::class)->paginate();
+    });
+
+    $this
+        ->getJson('/test-model')
+        ->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'id',
+                    'name',
+                    'status',
+                ],
+            ],
+            'page',
+            'per_page',
+            'total_pages',
+            'total_items',
+        ]);
+});
+
+it('can be overwritten with laravel paginated data', function () {
+    TestModel::factory(10)->create();
+    config()->set('filter-builder.default_pagination_resolver', LaravelPaginationResolver::class);
+
+    Route::get('/test-model', function () {
+        return createFilterBuilderFromRequest()->resource(TestModelResource::class)->paginate();
+    });
+
+    $this
+        ->getJson('/test-model')
+        ->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'id',
+                    'name',
+                    'status',
+                ],
+            ],
+            'links' => [
+                'first',
+                'last',
+                'prev',
+                'next',
+            ],
+            'meta' => [
+                'current_page',
+                'from',
+                'last_page',
+                'links' => [
+                    '*' => [
+                        'url',
+                        'label',
+                        'active',
+                    ],
+                ],
+                'path',
+                'per_page',
+                'to',
+                'total',
+            ],
+        ]);
 });

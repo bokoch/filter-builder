@@ -11,7 +11,7 @@ use Mykolab\FilterBuilder\Tests\TestClasses\Models\TestModel;
 uses(TestCase::class)->in(__DIR__);
 
 function createFilterBuilderFromRequest(
-    array $requestParameters,
+    array $requestParameters = [],
     Builder|string|null $subject = TestModel::class
 ): FilterBuilder {
     return FilterBuilder::for($subject, new Request($requestParameters));

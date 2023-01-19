@@ -62,7 +62,7 @@ class FilterBuilder
         return $this->query->get();
     }
 
-    public function paginate(): JsonResource
+    public function paginate()
     {
         return app(PaginationResolver::class)
             ->makePaginationResource(clone $this->query, $this->request, $this->resourceClass);

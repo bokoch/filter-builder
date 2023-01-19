@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Mykolab\FilterBuilder\FilterBuilderRequest;
-use Mykolab\FilterBuilder\Pagination\Resolvers\DefaultPaginationResolver;
+use Mykolab\FilterBuilder\Pagination\Resolvers\SimplePaginationResolver;
 use Mykolab\FilterBuilder\Tests\TestClasses\Models\TestModel;
 use Mykolab\FilterBuilder\Tests\TestClasses\TestModelResource;
 
@@ -13,7 +13,7 @@ it('has default per_page and page values', function () {
         $request = new Request([])
     );
 
-    $paginationResolver = new DefaultPaginationResolver();
+    $paginationResolver = new SimplePaginationResolver();
     $resource = $paginationResolver->makePaginationResource(
         TestModel::query(),
         $fbRequest,
@@ -35,7 +35,7 @@ it('resolves per_page and page values from request', function () {
         ])
     );
 
-    $paginationResolver = new DefaultPaginationResolver();
+    $paginationResolver = new SimplePaginationResolver();
     $resource = $paginationResolver->makePaginationResource(
         TestModel::query(),
         $fbRequest,
@@ -57,7 +57,7 @@ it('will not have page less than 1', function () {
         ])
     );
 
-    $paginationResolver = new DefaultPaginationResolver();
+    $paginationResolver = new SimplePaginationResolver();
     $resource = $paginationResolver->makePaginationResource(
         TestModel::query(),
         $fbRequest,
@@ -75,7 +75,7 @@ it('will not have page less than 1', function () {
         ])
     );
 
-    $paginationResolver = new DefaultPaginationResolver();
+    $paginationResolver = new SimplePaginationResolver();
     $resource = $paginationResolver->makePaginationResource(
         TestModel::query(),
         $fbRequest,

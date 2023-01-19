@@ -2,7 +2,7 @@
 
 namespace Mykolab\FilterBuilder;
 
-use Mykolab\FilterBuilder\Pagination\Resolvers\DefaultPaginationResolver;
+use Illuminate\Foundation\Application;
 use Mykolab\FilterBuilder\Pagination\Resolvers\PaginationResolver;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -22,6 +22,9 @@ class FilterBuilderServiceProvider extends PackageServiceProvider
             return FilterBuilderRequest::fromRequest($app['request']);
         });
 
-        $this->app->bind(PaginationResolver::class, DefaultPaginationResolver::class);
+        $this->app->bind(
+            PaginationResolver::class,
+            fn (Application $app) => $app->make($app['config']['filter-builder']['default_pagination_resolver'])
+        );
     }
 }

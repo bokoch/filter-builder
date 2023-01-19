@@ -304,8 +304,11 @@ For example:
     Callback query will be wrapped into `where` clause.
 ### Pagination
 If you want to paginate your Eloquent query data, you need to call `paginate` method on `FilterBuilder` instance.
-By default, package using `\Mykolab\FilterBuilder\Pagination\Resolvers\DefaultPaginationResolver` 
+By default, package using `\Mykolab\FilterBuilder\Pagination\Resolvers\SimplePaginationResolver` 
 which returns `\Mykolab\FilterBuilder\Pagination\PaginationResource`.
+But you can override it with `\Mykolab\FilterBuilder\Pagination\Resolvers\LaravelPaginationResolver` class in `filter-builder` config file in `default_pagination_resolver` key 
+this will paginate your data with default Laravel paginators. Or you can create your own implementation by implementing `Mykolab\FilterBuilder\Pagination\Resolvers\PaginationResolver` interface
+and putting that class in config file.
 By default, for pagination used `page` and `per_page` parameters in request.
 `page` parameter is for what page need to show and `per_page` is for number of items per page.
 They can be changed in `filter-builder.php` config file, `request_parameters.current_page` 
