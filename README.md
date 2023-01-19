@@ -9,6 +9,7 @@ It's allows you to perform filtering, sorting and searching based on Eloquent qu
    2. [Sorting](#sort-based-on-request)
    3. [Search](#search-based-on-request)
    4. [Pagination](#pagination)
+3. [Examples](#examples)
 
 ## Installation
 You can install the package via composer:
@@ -351,3 +352,52 @@ Example:
 Also from `FilterBuilder` instance you can get Eloquent query instance with applied filters, sorting and searches
 by calling `getQueryBuilder` method.
 And you can get all filtered data by calling `get` method.
+
+## Examples
+```php
+    use Mykolab\FilterBuilder\FilterBuilder;
+    use Mykolab\FilterBuilder\AllowedSearch;
+    use Illuminate\Support\Facades\DB;
+    use Mykolab\FilterBuilder\AllowedSearch;
+    use Mykolab\FilterBuilder\Search\Searchable;
+    use Mykolab\FilterBuilder\AllowedSort;
+    use Mykolab\FilterBuilder\AllowedFilters\DateRangeAllowedFilter;
+    use Mykolab\FilterBuilder\AllowedFilters\RangeAllowedFilter;
+    use Mykolab\FilterBuilder\AllowedFilters\WhereInAllowedFilter;
+    use Mykolab\FilterBuilder\AllowedFilters\ExactAllowedFilter;
+    use Mykolab\FilterBuilder\Enums\DateUnit;
+
+    public function index()
+    {
+        $query = Product::query()
+            ->select('products.*', 'c.name as category_name')
+            ->join('categories as c', 'c.id', '=', 'products.category_id');
+
+        return FilterBuilder::for($query)
+            ->resource(ProductResource::class)
+            ->allowedSorts([
+                AllowedSort::field('id', 'products.id'),
+                AllowedSort::field('category_name'),
+                AllowedSort::field('price'),
+            ])
+            ->allowedFilters([
+                ExactAllowedFilter::make('name', 'products.name'),
+                DateRangeAllowedFilter::make('created', 'products.created_at')->roundDatesTo(DateUnit::HOUR),
+                RangeAllowedFilter::make('price'),
+                WhereInAllowedFilter::make('status', 'products.status')->allowedOptions(['published', 'preorder']),
+            ])
+            ->allowedSearch(
+                AllowedSearch::searchable([
+                    Searchable::make('products.id')->disableWildCardAtEnd(),
+                    Searchable::make('products.name')->disableCaseInsensitive(),
+                    Searchable::make('categories.name'),
+                ])
+            )
+    }
+```
+In this example, this query will accept order_by values: `id, category_name, price`.
+
+For filtering it will accept: `name, created_from, created_to, price_from, price_to, status` (only for published and preorder values),
+all other values and parameters will be skipped.
+
+And if request will have `search` parameter, it will apply `orWhere` condition and search for `products.id`, `products.name`, `categories.name`.
