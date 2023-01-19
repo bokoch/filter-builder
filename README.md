@@ -240,8 +240,9 @@ By default `$searchParameterName` is equal `search`, but you can change it in `f
 1. FieldSearch - filter Eloquent query by allowed fields.
 Accepts array of `Mykolab\FilterBuilder\Search\Searchable` instances.
 Searchable instance allows you to configure case-sensitivity and wildcards (percentage signs) at start and end of value.
-By default, searchable instances are case-insensitive and have wildcards at start and end.
+By default, searchable instances are case-insensitive and have wildcards at the end of searched value.
 But you can disable it with `disableWildCardAtStart`, `disableWildCardAtEnd`, `disableCaseInsensitive` methods.
+Or enable by calling `wildCardAtStart()` or `wildCardAtEnd()` if needed. 
 For example:
     ```php
     use Mykolab\FilterBuilder\FilterBuilder;
@@ -252,7 +253,7 @@ For example:
         ->allowedSearch(
             AllowedSearch::searchable([
                 Searchable::make('first_name')->disableCaseInsensitive(),
-                Searchable::make('last_name')->disableWildCardAtStart(),
+                Searchable::make('last_name')->wildCardAtStart(),
                 Searchable::make('email')->disableWildCardAtEnd(),
             ]),
         );
@@ -262,9 +263,9 @@ For example:
     use \Illuminate\Database\Eloquent\Builder;
 
     $query->where(function (Builder $query) {
-        $query->where('first_name', 'like', '%' . request()->first_name . '%')
-        $query->orWhere('last_name', 'ilike', request()->last_name . '%')
-        $query->orWhere('email', 'ilike', '%' . request()->email);
+        $query->where('first_name', 'ilike', request()->first_name . '%')
+        $query->orWhere('last_name', 'like', '%' . request()->last_name . '%')
+        $query->orWhere('email', 'like', request()->email);
     });
     ```
    All searchable instance will be converted into `orWhere` clauses and wrapped into `where`.

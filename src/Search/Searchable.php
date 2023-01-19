@@ -6,7 +6,7 @@ use Illuminate\Database\Query\Expression;
 
 class Searchable
 {
-    public bool $wildCardAtStart = true;
+    public bool $wildCardAtStart = false;
 
     public bool $wildCardAtEnd = true;
 
@@ -23,14 +23,24 @@ class Searchable
 
     public function disableWildCardAtStart(): static
     {
-        $this->wildCardAtStart = false;
+        return $this->wildCardAtStart(false);
+    }
+
+    public function wildCardAtStart(bool $enabled = true): static
+    {
+        $this->wildCardAtStart = $enabled;
 
         return $this;
     }
 
     public function disableWildCardAtEnd(): static
     {
-        $this->wildCardAtEnd = false;
+        return $this->wildCardAtEnd(false);
+    }
+
+    public function wildCardAtEnd(bool $enabled = true): static
+    {
+        $this->wildCardAtEnd = $enabled;
 
         return $this;
     }

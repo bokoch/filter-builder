@@ -79,11 +79,11 @@ it('can search as case sensitive', function () {
     expect($actualResults)->toHaveCount(1);
 });
 
-it('can search part in the middle of column by default', function () {
+it('will search with strict start of column by default', function () {
     TestModel::factory()->create(['name' => 'test foo bar xyz']);
 
     $actualResults = createFilterBuilderFromRequest([
-        'search' => 'foo bar',
+        'search' => 'test foo',
     ])
         ->allowedSearch(
             AllowedSearch::searchable([
@@ -95,7 +95,7 @@ it('can search part in the middle of column by default', function () {
     expect($actualResults)->toHaveCount(1);
 });
 
-it('can search part with strict start of column', function () {
+it('can search part with wildcard at start of column', function () {
     TestModel::factory()->create(['name' => 'test foo bar xyz']);
 
     $actualResults = createFilterBuilderFromRequest([
@@ -103,19 +103,7 @@ it('can search part with strict start of column', function () {
     ])
         ->allowedSearch(
             AllowedSearch::searchable([
-                Searchable::make('name')->disableWildCardAtStart(),
-            ])
-        )
-        ->get();
-
-    expect($actualResults)->toBeEmpty();
-
-    $actualResults = createFilterBuilderFromRequest([
-        'search' => 'test foo bar',
-    ])
-        ->allowedSearch(
-            AllowedSearch::searchable([
-                Searchable::make('name')->disableWildCardAtStart(),
+                Searchable::make('name')->wildCardAtStart(),
             ])
         )
         ->get();
@@ -123,7 +111,7 @@ it('can search part with strict start of column', function () {
     expect($actualResults)->toHaveCount(1);
 });
 
-it('can search part with strict end of column', function () {
+it('can search part in the middle', function () {
     TestModel::factory()->create(['name' => 'test foo bar xyz']);
 
     $actualResults = createFilterBuilderFromRequest([
@@ -143,7 +131,7 @@ it('can search part with strict end of column', function () {
     ])
         ->allowedSearch(
             AllowedSearch::searchable([
-                Searchable::make('name')->disableWildCardAtEnd(),
+                Searchable::make('name')->wildCardAtStart(),
             ])
         )
         ->get();
