@@ -20,7 +20,7 @@ class PaginationResource extends JsonResource
     {
         return [
             'data' => $this->resource,
-            'page' => $this->paginationData->currentPage,
+            config('filter-builder.response_parameters.current_page') => $this->paginationData->currentPage,
             'per_page' => $this->paginationData->perPage,
             'total_pages' => $this->paginationData->getTotalPages(),
             'total_items' => $this->paginationData->totalItems,

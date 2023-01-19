@@ -17,4 +17,8 @@ return [
             'to' => '_to',
         ],
     ],
+
+    'response_parameters' => [
+        'current_page' => 'page',
+    ],
 ];
