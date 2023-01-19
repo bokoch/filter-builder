@@ -401,5 +401,6 @@ In this example, this query will accept order_by values: `id, category_name, pri
 For filtering it will accept: `name, created_from, created_to, price_from, price_to, status` (only for published and preorder values),
 all other values and parameters will be skipped.
 
-And if request will have `search` parameter, it will apply `orWhere` condition and search for `products.id`, `products.name`, `categories.name`.
+If request will have `search` parameter, it will apply `orWhere` condition and search for `products.id`, `products.name`, `categories.name`.
+
 And paginated data will be wrapped with `ProductResource` json resource.
